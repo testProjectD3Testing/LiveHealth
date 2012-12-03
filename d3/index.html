@@ -1,13 +1,61 @@
-<html>
-    <head>
-        <title>D3 Test</title>
-        <script type="text/javascript" src="d3.v2.min.js"></script>
-    </head>
-    <body>
-        <script type="text/javascript">
-		  var dataset=[1,2,3,4,5];
-          d3.select("body").selectall("p").data(datset).enter().append("p").text("New paragraph!");
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+</style>
+
+ <body>
+  
+<script src="http://d3js.org/d3.v3.js"></script>
+   
+  
+     <script>
+		
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+	
+var parseDate = d3.time.format("%m").parse;
+	
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().domain([0,10]).range([height, 0]);
+
+
+var xaxis=d3.svg.axis().scale(x).orient("bottom");
+var yaxis=d3.svg.axis().scale(y).orient("left");
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
+
+svg.append("g").call(xaxis);
+
         </script>
-    </body>
-</html>  
+      
+  
 
