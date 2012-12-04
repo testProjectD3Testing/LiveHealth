@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Demo: Axes</title>
+		<script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+		<style type="text/css">
+			
+			.axis path,
+			.axis line {
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+			}
+			
+			.axis text {
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+			<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 1000;
+			var h = 500;
+			var padding = 30;
+	var line = d3.svg.line()
+    .x(function(d) { return x(d.das); })
+    .y(function(d) { return y(d.close); });
+			d3.csv("/Users/ketkijoshi/Desktop/d3/ecgtrial.csv", function(error,data) {
+  data.forEach(function(d){
+    d.das = +(d.das);
+    var yax = +(d.close);
+	d.close=yax*-100;
+  });
+			//Create scale functions
+			var xScale = d3.scale.linear()
+								 .domain([300,307])
+								 .range([0,1000]);
+
+			var yScale = d3.scale.linear()
+								 .domain([-50,100])
+								 .range([h,0]);
+			//Define X axis
+			var xAxis = d3.svg.axis()
+							  .scale(xScale)
+							  .orient("bottom")
+							  .ticks(5);
+			//Define Y axis
+			var yAxis = d3.svg.axis()
+							  .scale(yScale)
+							  .orient("left")
+							  .ticks(5);
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+			//Create path
+			svg.append("path")
+			.data(data)
+			.attr("class", "line")
+      		.attr("d", line);
+			
+	
+			
+			//Create Y axis
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+			});
+		</script>
+	</body>
+</html>
