@@ -1,101 +1,113 @@
-
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>D3 Demo: Axes</title>
-		<script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
-		<style type="text/css">
-			
-			.axis path,
-			.axis line {
-				fill: none;
-				stroke: black;
-				shape-rendering: crispEdges;
-			}
-			
-			.axis text {
-				font-family: sans-serif;
-				font-size: 11px;
-			}
-			<style>
+<meta charset="utf-8">
+<title>Path Transitions</title>
+<body>
+<style>
 
-body {
-  font: 10px sans-serif;
-}
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
 
-.x.axis path {
-  display: none;
+.x.axis line {
+  shape-rendering: auto;
 }
 
 .line {
   fill: none;
-  stroke: steelblue;
+  stroke: #000;
   stroke-width: 1.5px;
 }
-		</style>
-	</head>
-	<body>
-		<script type="text/javascript">
 
-			//Width and height
-			var w = 1000;
-			var h = 500;
-			var padding = 30;
-	var line = d3.svg.line()
-    .x(function(d) { return x(d.das); })
-    .y(function(d) { return y(d.close); });
-	var data1;
-			d3.csv("/Users/abhimanyubhosle/Documents/Project/d3/ecgtrial.csv", function(error,data1) {
-  data1.forEach(function(d){
-    d.das = +(d.das);
-    var yax = +(d.close);
-	d.close=yax*-100;
+</style>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+
+var n = 40,
+    random = d3.random.normal(0, .2);
+
+function chart(domain,data, interpolation, tick) {
+
+
+  var margin = {top: 6, right: 0, bottom: 6, left: 40},
+      width = 960 - margin.right,
+      height = 120 - margin.top - margin.bottom;
+
+  var x = d3.scale.linear()
+      .domain(domain)
+      .range([0, width]);
+
+  var y = d3.scale.linear()
+      .domain([-20, 100])
+      .range([height, 0]);
+
+  var line = d3.svg.line()
+      .interpolate(interpolation)
+      .x(function(data,i) { return x(data[i].das); })
+      .y(function(data,i) { return y(data[i].close); });
+
+  var svg = d3.select("body").append("p").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .style("margin-left", -margin.left + "px")
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  svg.append("defs").append("clipPath")
+      .attr("id", "clip")
+    .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(d3.svg.axis().scale(y).ticks(5).orient("left"));
+
+  var path = svg.append("g")
+      .attr("clip-path", "url(#clip)")
+    .append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", line);
+
+  tick(path, line, data, x);
+}
+
+</script>
+
+<header>
+  <aside>January 19, 2012</aside>
+  <a href="../../../../abhimanyubhosle" rel="author">Mike Bostock</a>
+</header>
+
+<h1>Path Transitions</h1>
+
+
+
+<script>
+	d3.csv("ecgtrial.csv", function(error, dat) {
+  dat.forEach(function(dat) {
+    dat.das = +(dat.das);
+    dat.close = +(dat.close);
   });
-			//Create scale functions
-			var xScale = d3.scale.linear()
-								 .domain([300,307])
-								 .range([0,1000]);
+  
+	});
+chart([300,307],dat, "linear", function tick(path, line, dat, x) {
 
-			var yScale = d3.scale.linear()
-								 .domain([-50,100])
-								 .range([h,0]);
-			//Define X axis
-			var xAxis = d3.svg.axis()
-							  .scale(xScale)
-							  .orient("bottom")
-							  .ticks(5);
-			//Define Y axis
-			var yAxis = d3.svg.axis()
-							  .scale(yScale)
-							  .orient("left")
-							  .ticks(5);
-			//Create SVG element
-			var svg = d3.select("body")
-						.append("svg")
-						.attr("width", w)
-						.attr("height", h);
-			//Create path
-			svg.append("path")
-			.data(data)
-			.attr("class", "line")
-      		.attr("d", line);
-			
-	
-			
-			//Create Y axis
-			svg.append("g")
-				.attr("class", "axis")
-				.attr("transform", "translate(" + padding + ",0)")
-				.call(yAxis);
-			});
-		</script>
-	</body>
+  // push a new data point onto the back
+  dat.push(dat.close);
+
+  // redraw the line, and then slide it to the left
+  path
+      .attr("d", line)
+      .attr("transform", null)
+      .transition()
+      .duration(750)
+      .ease("linear")
+      .attr("transform", "translate(" + x(-1) + ")")
+      .each("end", function() { tick(path, line, dat, x); });
+
+  // pop the old data point off the front
+  dat.shift();
+
+});
+</script>
+</body>
 </html>
