@@ -29,7 +29,7 @@ body {
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
+    width = 150,
     height = 300;
 
 
@@ -68,7 +68,7 @@ d3.csv("ecgtrial.csv", function(error, data) {
   });
 
 
-  x.domain(d3.extent(data, function(d) { return d.das; }));
+  x.domain([300,300.60]);
   y.domain(d3.extent(data, function(d) { return d.close; }));
 
   svg.append("g")
