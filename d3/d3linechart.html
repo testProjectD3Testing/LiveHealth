@@ -30,14 +30,7 @@ var ydomain;
 function tick(path, line, data, x) {
 
   // push a new data point onto the back
-  if (i<2520){
-  data.push(delta[i]);
-++i;
-  }
-  else
-  {
 	  data.push(respon());
-	  }
   // redraw the line, and then slide it to the left
   path
       .attr("d", line)
@@ -120,25 +113,26 @@ function chart(domain, interpolation, tick) {
   tick(path, line, data, x);
 
 }
-
+var index=5;
 function respon(){
 det=new Object();
 det.close=0;
 det.das=0;
 $.ajax({
         type:'GET',
-        url:"http://localhost:8080/servlets/testing",
-        data:"time",
+        url:"http://localhost:8080/servlets/testing?time="+index,
+		data:"time",
         success:function(feed) {
+			index=index+1;
 			var temp=eval('(' + feed + ')');
-			det.das=+temp.time;
-			det.close=+temp.value;
+			det.das=+temp.tim;
+			var x=+temp.val;
+			det.close=x*100;
             console.log(temp.time+" " + temp.value);
         },
     });
 	return det;
 }
-respon();
 </script>
 
 </body>
