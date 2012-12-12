@@ -24,19 +24,20 @@
 
 <script>
 var delta=[];
+var v=[];
 var i=0;
 	var data1=[];
 var ydomain;
 function tick(path, line, data, x) {
 
   // push a new data point onto the back
-	  data.push(respon());
+	  
   // redraw the line, and then slide it to the left
   path
       .attr("d", line)
       .attr("transform", null)
       .transition()
-      .duration(0)
+      .duration(30)
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ")")
       .each("end", function() { tick(path, line, data, x); });
@@ -56,6 +57,11 @@ d3.csv("ecgtrial.csv", function(error, data1) {
   });
   data=delta.slice(0,720);
    ydomain=d3.extent(data1, function(d) { return d.close; });
+   var x=[]
+   
+   $.merge(data,respon());
+ 	setTimeout(2000,respon());
+ 	  $.merge(data,respon());
   chart([0,n-1], "cardinal",tick);
  
 });
@@ -113,25 +119,33 @@ function chart(domain, interpolation, tick) {
   tick(path, line, data, x);
 
 }
-var index=5;
+
+var index=0;
 function respon(){
 det=new Object();
 det.close=0;
 det.das=0;
+det.th=0
+index=0;
 $.ajax({
         type:'GET',
-        url:"http://localhost:8080/servlets/testing?time="+index,
+        url:"http://localhost:8080/Test/testing",
+        async:false,
 		data:"time",
         success:function(feed) {
-			index=index+1;
 			var temp=eval('(' + feed + ')');
-			det.das=+temp.tim;
-			var x=+temp.val;
+			while(index<300){
+			det.das=+temp[index];
+			var x=+temp[index+1];
 			det.close=x*100;
-            console.log(temp.time+" " + temp.value);
+			det.th=temp[index+2]*100;
+			index=index+4;
+			v.push(det);
+			}
+           // console.log(temp.time+" " + temp.value);
         },
     });
-	return det;
+	return v;
 }
 </script>
 
