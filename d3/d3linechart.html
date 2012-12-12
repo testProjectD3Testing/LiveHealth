@@ -23,48 +23,57 @@
 <script language="JavaScript" type="text/javascript" src="jquery-1.8.3.js.js"></script>
 
 <script>
-var delta=[];
-var v=[];
+var data=[];
 var i=0;
-	var data1=[];
+var det=new Object();
+det.lead1=0;
+det.lead2=0;
+det.lead5=0;
 var ydomain;
-function tick(path, line, data, x) {
+function tick(path1,path2,line1,line2,data,x) {
 
   // push a new data point onto the back
-	  
+	  if(index<10000)
+	  {
+		  respon();
+		}
   // redraw the line, and then slide it to the left
-  path
-      .attr("d", line)
+  path1
+      .attr("d", line1)
       .attr("transform", null)
       .transition()
       .duration(30)
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ")")
-      .each("end", function() { tick(path, line, data, x); });
+     // .each("end", function() { tick(path1,path2,line1,line2,data,x); });
+	  
+	  
+
+path2
+      .attr("d", line2)
+      .attr("transform", null)
+      .transition()
+      .duration(30)
+      .ease("linear")
+      .attr("transform", "translate(" + x(-1) + ")")
+      .each("end", function() { tick(path1,path2,line1,line2,data,x); });
+
 
   // pop the old data point off the front
   data.shift();
 
 }
-var data=[];
 
-d3.csv("ecgtrial.csv", function(error, data1) {
-  data1.forEach(function(d) {
-    d.das = +d.das;
-   var pq = +d.close;
-	d.close=pq*100;
-	delta.push(d);
-  });
-  data=delta.slice(0,720);
-   ydomain=d3.extent(data1, function(d) { return d.close; });
-   var x=[]
+
+var data=[];
+while(i<800)
+{data.push(det);
+i++;
+}
+
    
-   $.merge(data,respon());
- 	setTimeout(2000,respon());
- 	  $.merge(data,respon());
   chart([0,n-1], "cardinal",tick);
- 
-});
+
 
 var n = 720;
   //  random = d3.random.normal(0, .2);
@@ -80,19 +89,37 @@ function chart(domain, interpolation, tick) {
       .range([0, width]);
 
   var y = d3.scale.linear()
-      .domain(ydomain)
+      .domain([-100,100])
       .range([height,0]);
 
-  var line = d3.svg.line()
+  var line1 = d3.svg.line()
       .interpolate(interpolation)
       .x(function(d, i) {
 		   return x(i); 
 			})
       .y(function(d, i) { 
-	  		return y(d.close); 
+	  		return y(d.lead1); 
 	  });
 
-  var svg = d3.select("body").append("p").append("svg")
+  var svg1 = d3.select("body").append("p").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .style("margin-left", -margin.left + "px")
+	  .attr("class","svg1")
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	  
+	  
+ var line2 = d3.svg.line()
+      .interpolate(interpolation)
+      .x(function(d, i) {
+		   return x(i); 
+			})
+      .y(function(d, i) { 
+	  		return y(d.lead2); 
+	  });
+
+  var svg2 = d3.select("body").append("p").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .style("margin-left", -margin.left + "px")
@@ -101,50 +128,42 @@ function chart(domain, interpolation, tick) {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(y)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em");
 
-  var path = svg.append("g")
+  var path1 = svg1.append("g")
       .attr("clip-path", "url(#clip)")
     .append("path")
       .data([data])
       .attr("class", "line")
-      .attr("d", line);
+      .attr("d", line1);
+	  
+	  var path2 = svg2.append("g")
+      .attr("clip-path", "url(#clip)")
+    .append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", line2);
 
-  tick(path, line, data, x);
+  tick(path1,path2,line1,line2,data,x);
 
 }
 
 var index=0;
 function respon(){
-det=new Object();
-det.close=0;
-det.das=0;
-det.th=0
-index=0;
 var i=0;
 var tem=[];
 $.ajax({
         type:'GET',
-        url:"http://localhost:8080/Test/testing",
+        url:"http://192.168.1.106:8080/Test/testing",
         async:false,
 		data:"time",
         success:function(feed) {
 			var temp=eval('(' + feed + ')');
-			while(index<400){
-			v.push({das:temp[index],close:(temp[index+1]*100),th:(temp[index+2]*100)});
-			index=index+4;
-			i++;
+			while(i<400){
+			data.push({lead2:temp[index],lead1:(temp[index+1]*100),lead5:(temp[index+2]*100)});
+			i=i+4;
 			}
-           // console.log(temp.time+" " + temp.value);
         },
     });
-	return v;
 }
 </script>
 
