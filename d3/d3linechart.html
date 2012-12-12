@@ -26,6 +26,10 @@
 var delta=[];
 var v=[];
 var i=0;
+var det=new object();
+det.lead1=0;
+det.lead2=0;
+det.lead5=0;
 	var data1=[];
 var ydomain;
 function tick(path, line, data, x) {
@@ -46,25 +50,19 @@ function tick(path, line, data, x) {
   data.shift();
 
 }
-var data=[];
 
-d3.csv("ecgtrial.csv", function(error, data1) {
-  data1.forEach(function(d) {
-    d.das = +d.das;
-   var pq = +d.close;
-	d.close=pq*100;
-	delta.push(d);
-  });
-  data=delta.slice(0,720);
-   ydomain=d3.extent(data1, function(d) { return d.close; });
-   var x=[]
+
+var data=[];
+while(i<800)
+{data.push(det);
+}
+
    
    $.merge(data,respon());
  	setTimeout(2000,respon());
  	  $.merge(data,respon());
   chart([0,n-1], "cardinal",tick);
- 
-});
+
 
 var n = 720;
   //  random = d3.random.normal(0, .2);
@@ -89,7 +87,7 @@ function chart(domain, interpolation, tick) {
 		   return x(i); 
 			})
       .y(function(d, i) { 
-	  		return y(d.close); 
+	  		return y(d.lead1); 
 	  });
 
   var svg = d3.select("body").append("p").append("svg")
@@ -123,28 +121,25 @@ function chart(domain, interpolation, tick) {
 var index=0;
 function respon(){
 det=new Object();
-det.close=0;
-det.das=0;
-det.th=0
+det.lead1=0;
+det.lead2=0;
+det.lead5=0
 index=0;
 var i=0;
 var tem=[];
 $.ajax({
         type:'GET',
-        url:"http://localhost:8080/Test/testing",
+        url:"http://192.168.1.106:8080/Test/testing",
         async:false,
 		data:"time",
         success:function(feed) {
 			var temp=eval('(' + feed + ')');
 			while(index<400){
-			v.push({das:temp[index],close:(temp[index+1]*100),th:(temp[index+2]*100)});
+			v.push({lead2:temp[index],lead1:(temp[index+1]*100),lead5:(temp[index+2]*100)});
 			index=index+4;
-			i++;
 			}
-           // console.log(temp.time+" " + temp.value);
         },
     });
-	return v;
 }
 </script>
 
