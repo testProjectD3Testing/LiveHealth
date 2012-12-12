@@ -127,6 +127,8 @@ det.close=0;
 det.das=0;
 det.th=0
 index=0;
+var i=0;
+var tem=[];
 $.ajax({
         type:'GET',
         url:"http://localhost:8080/Test/testing",
@@ -134,13 +136,10 @@ $.ajax({
 		data:"time",
         success:function(feed) {
 			var temp=eval('(' + feed + ')');
-			while(index<300){
-			det.das=+temp[index];
-			var x=+temp[index+1];
-			det.close=x*100;
-			det.th=temp[index+2]*100;
+			while(index<400){
+			v.push({das:temp[index],close:(temp[index+1]*100),th:(temp[index+2]*100)});
 			index=index+4;
-			v.push(det);
+			i++;
 			}
            // console.log(temp.time+" " + temp.value);
         },
