@@ -23,14 +23,12 @@
 <script language="JavaScript" type="text/javascript" src="jquery-1.8.3.js.js"></script>
 
 <script>
-var delta=[];
-var v=[];
+var data=[];
 var i=0;
 var det=new Object();
 det.lead1=0;
 det.lead2=0;
 det.lead5=0;
-	var data1=[];
 var ydomain;
 function tick(path1,path2,line1,line2,data,x) {
 
@@ -40,14 +38,26 @@ function tick(path1,path2,line1,line2,data,x) {
 		  respon();
 		}
   // redraw the line, and then slide it to the left
-  path
-      .attr("d", line)
+  path1
+      .attr("d", line1)
+      .attr("transform", null)
+      .transition()
+      .duration(30)
+      .ease("linear")
+      .attr("transform", "translate(" + x(-1) + ")")
+     // .each("end", function() { tick(path1,path2,line1,line2,data,x); });
+	  
+	  
+
+path2
+      .attr("d", line2)
       .attr("transform", null)
       .transition()
       .duration(30)
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ")")
       .each("end", function() { tick(path1,path2,line1,line2,data,x); });
+
 
   // pop the old data point off the front
   data.shift();
@@ -58,6 +68,7 @@ function tick(path1,path2,line1,line2,data,x) {
 var data=[];
 while(i<800)
 {data.push(det);
+i++;
 }
 
    
@@ -118,27 +129,19 @@ function chart(domain, interpolation, tick) {
 
 
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(y)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em");
-
-  var path1 = svg.append("g")
+  var path1 = svg1.append("g")
       .attr("clip-path", "url(#clip)")
     .append("path")
       .data([data])
       .attr("class", "line")
-      .attr("d", line);
+      .attr("d", line1);
 	  
-	  var path2 = svg.append("g")
+	  var path2 = svg2.append("g")
       .attr("clip-path", "url(#clip)")
     .append("path")
       .data([data])
       .attr("class", "line")
-      .attr("d", line);
+      .attr("d", line2);
 
   tick(path1,path2,line1,line2,data,x);
 
@@ -146,7 +149,6 @@ function chart(domain, interpolation, tick) {
 
 var index=0;
 function respon(){
-index=0;
 var i=0;
 var tem=[];
 $.ajax({
@@ -156,9 +158,9 @@ $.ajax({
 		data:"time",
         success:function(feed) {
 			var temp=eval('(' + feed + ')');
-			while(index<400){
+			while(i<400){
 			data.push({lead2:temp[index],lead1:(temp[index+1]*100),lead5:(temp[index+2]*100)});
-			index=index+4;
+			i=i+4;
 			}
         },
     });
