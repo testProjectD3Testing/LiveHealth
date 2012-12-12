@@ -26,16 +26,19 @@
 var delta=[];
 var v=[];
 var i=0;
-var det=new object();
+var det=new Object();
 det.lead1=0;
 det.lead2=0;
 det.lead5=0;
 	var data1=[];
 var ydomain;
-function tick(path, line, data, x) {
+function tick(path1,path2,line1,line2,data,x) {
 
   // push a new data point onto the back
-	  
+	  if(index<10000)
+	  {
+		  respon();
+		}
   // redraw the line, and then slide it to the left
   path
       .attr("d", line)
@@ -44,7 +47,7 @@ function tick(path, line, data, x) {
       .duration(30)
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ")")
-      .each("end", function() { tick(path, line, data, x); });
+      .each("end", function() { tick(path1,path2,line1,line2,data,x); });
 
   // pop the old data point off the front
   data.shift();
@@ -58,9 +61,6 @@ while(i<800)
 }
 
    
-   $.merge(data,respon());
- 	setTimeout(2000,respon());
- 	  $.merge(data,respon());
   chart([0,n-1], "cardinal",tick);
 
 
@@ -78,10 +78,10 @@ function chart(domain, interpolation, tick) {
       .range([0, width]);
 
   var y = d3.scale.linear()
-      .domain(ydomain)
+      .domain([-100,100])
       .range([height,0]);
 
-  var line = d3.svg.line()
+  var line1 = d3.svg.line()
       .interpolate(interpolation)
       .x(function(d, i) {
 		   return x(i); 
@@ -90,13 +90,32 @@ function chart(domain, interpolation, tick) {
 	  		return y(d.lead1); 
 	  });
 
-  var svg = d3.select("body").append("p").append("svg")
+  var svg1 = d3.select("body").append("p").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .style("margin-left", -margin.left + "px")
 	  .attr("class","svg1")
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	  
+	  
+ var line2 = d3.svg.line()
+      .interpolate(interpolation)
+      .x(function(d, i) {
+		   return x(i); 
+			})
+      .y(function(d, i) { 
+	  		return y(d.lead2); 
+	  });
+
+  var svg2 = d3.select("body").append("p").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .style("margin-left", -margin.left + "px")
+	  .attr("class","svg1")
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
 
   svg.append("g")
@@ -107,23 +126,26 @@ function chart(domain, interpolation, tick) {
       .attr("y", 6)
       .attr("dy", ".71em");
 
-  var path = svg.append("g")
+  var path1 = svg.append("g")
+      .attr("clip-path", "url(#clip)")
+    .append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", line);
+	  
+	  var path2 = svg.append("g")
       .attr("clip-path", "url(#clip)")
     .append("path")
       .data([data])
       .attr("class", "line")
       .attr("d", line);
 
-  tick(path, line, data, x);
+  tick(path1,path2,line1,line2,data,x);
 
 }
 
 var index=0;
 function respon(){
-det=new Object();
-det.lead1=0;
-det.lead2=0;
-det.lead5=0
 index=0;
 var i=0;
 var tem=[];
@@ -135,7 +157,7 @@ $.ajax({
         success:function(feed) {
 			var temp=eval('(' + feed + ')');
 			while(index<400){
-			v.push({lead2:temp[index],lead1:(temp[index+1]*100),lead5:(temp[index+2]*100)});
+			data.push({lead2:temp[index],lead1:(temp[index+1]*100),lead5:(temp[index+2]*100)});
 			index=index+4;
 			}
         },
