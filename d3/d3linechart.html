@@ -27,27 +27,23 @@
 var data=[];
 var i=0;
 var interval=0;
-var ydomain;
+var norec=100;
 function tick(path1,path2,line1,line2,data,x) {
 
   // push a new data point onto the back
-  if(i%100==0){
+  if(i%30==0){
 		  respon();
-  i++;
   }
   i++;
   // redraw the line, and then slide it to the left
   path1
       .attr("d", line1)
-      .attr("transform", null)
+	   .attr("transform", null)
       .transition()
       .duration(30)
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ")")
-     // .each("end", function() { tick(path1,path2,line1,line2,data,x); });
 	  
-	  
-
 path2
       .attr("d", line2)
       .attr("transform", null)
@@ -56,29 +52,23 @@ path2
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ")")
       .each("end", function() { tick(path1,path2,line1,line2,data,x); });
-
-
   // pop the old data point off the front
   data.shift();
 
 }
-
-
-//var data=[];
-var delta=[];
 var c=0;
 var det=new Object();
 det.lead1=0;
 det.lead2=0;
 det.lead5=0;
-while(c<721){
+while(c<window.innerWidth){
  //   d.close=pq*100;
 	data.push(det);
   c++;
   }
 
 //  data=delta.slice(0,720);
-//respon();
+respon();  
   chart([0,n-1], "cardinal",tick);
  
 var n = 720;
@@ -87,8 +77,8 @@ function chart(domain, interpolation, tick) {
 // var data = d3.range(n).map(random);
 
   var margin = {top: 6, right: 0, bottom: 6, left: 40},
-      width = 720,
-      height = 300;
+      width = window.innerWidth,
+      height = 200;
 
   var x = d3.scale.linear()
       .domain([0,720])
@@ -134,37 +124,35 @@ function chart(domain, interpolation, tick) {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-
   var path1 = svg1.append("g")
     .append("path")
       .data([data])
       .attr("class", "line")
-      .attr("d", line1);
+      .attr("d", line1)
 	  
 	  var path2 = svg2.append("g")
     .append("path")
       .data([data])
       .attr("class", "line")
-      .attr("d", line2);
-	  
+      .attr("d", line2)
+	  	  
   tick(path1,path2,line1,line2,data,x);
 
 }
-
-var ind=0;
-
-function respon(){
+function respon()
+{
 var iq=0;
 $.ajax({
         type:'GET',
-        url:"http://192.168.1.103:8080/Test1/testing?time="+interval,
+        url:"http://192.168.1.107:8080/Test1/testing",
+		data: "stindex=" + interval + "&norec="+ norec,
 		async:false,
         success:function(feed) 
         {
 			var temp=eval('(' + feed + ')');
-			while(iq<400){
-			data.push({lead1:(temp[iq+1]*100),lead2:(temp[iq+2]*100)});
-			iq=iq+4;
+			while(iq<3*norec){
+			data.push({lead1:(temp[iq]*100),lead2:(temp[iq+1]*100),lead5:(temp[iq+2]*100)});
+			iq=iq+3;
 			}
 			interval=interval+100;
         },
