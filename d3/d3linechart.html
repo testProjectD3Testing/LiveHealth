@@ -21,14 +21,12 @@
 </style>
 <script src="http://d3js.org/d3.v3.js"></script>
 <script language="JavaScript" type="text/javascript" src="jquery-1.8.3.js.js"></script>
+<body>
 
 <script>
 var data=[];
 var i=0;
-var det=new Object();
-det.lead1=0;
-det.lead2=0;
-det.lead5=0;
+var interval=0;
 var ydomain;
 function tick(path1,path2,line1,line2,data,x) {
 
@@ -37,7 +35,7 @@ function tick(path1,path2,line1,line2,data,x) {
 		  respon();
   i++;
   }
-  i++;x
+  i++;
   // redraw the line, and then slide it to the left
   path1
       .attr("d", line1)
@@ -66,48 +64,52 @@ path2
 }
 
 
-var data=[];
-var delta=[]
-d3.csv("ecgtrial.csv", function(error, data1) {
-  data1.forEach(function(d) {
+//var data=[];
+var delta=[];
+var c=0;
+var det=new Object();
+det.lead1=0;
+det.lead2=0;
+det.lead5=0;
+while(c<721){
+ //   d.close=pq*100;
+	data.push(det);
+  c++;
+  }
 
-  //  d.close=pq*100;
-	delta.push(det);
-  });
-  data=delta.slice(0,720);
-
+//  data=delta.slice(0,720);
+//respon();
   chart([0,n-1], "cardinal",tick);
  
-});
 var n = 720;
   //  random = d3.random.normal(0, .2);
 function chart(domain, interpolation, tick) {
 // var data = d3.range(n).map(random);
 
   var margin = {top: 6, right: 0, bottom: 6, left: 40},
-      width = 900 - margin.right,
+      width = 720,
       height = 300;
 
   var x = d3.scale.linear()
-      .domain(domain)
+      .domain([0,720])
       .range([0, width]);
 
   var y = d3.scale.linear()
-      .domain([-100,100])
+      .domain([-75,75])
       .range([height,0]);
 
   var line1 = d3.svg.line()
       .interpolate(interpolation)
       .x(function(d, i) {
-		   return x(i); 
+		   return i; 
 			})
       .y(function(d, i) { 
 	  		return y(d.lead1); 
 	  });
 
   var svg1 = d3.select("body").append("p").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", width)
+      .attr("height", height)
       .style("margin-left", -margin.left + "px")
 	  .attr("class","svg1")
     .append("g")
@@ -117,15 +119,15 @@ function chart(domain, interpolation, tick) {
  var line2 = d3.svg.line()
       .interpolate(interpolation)
       .x(function(d, i) {
-		   return x(i); 
+		   return i; 
 			})
       .y(function(d, i) { 
 	  		return y(d.lead2); 
 	  });
 
   var svg2 = d3.select("body").append("p").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", width)
+      .attr("height", height)
       .style("margin-left", -margin.left + "px")
 	  .attr("class","svg1")
     .append("g")
@@ -134,14 +136,12 @@ function chart(domain, interpolation, tick) {
 
 
   var path1 = svg1.append("g")
-      .attr("clip-path", "url(#clip)")
     .append("path")
       .data([data])
       .attr("class", "line")
       .attr("d", line1);
 	  
 	  var path2 = svg2.append("g")
-      .attr("clip-path", "url(#clip)")
     .append("path")
       .data([data])
       .attr("class", "line")
@@ -152,13 +152,13 @@ function chart(domain, interpolation, tick) {
 }
 
 var ind=0;
-var interval=0
+
 function respon(){
 var iq=0;
 $.ajax({
         type:'GET',
-        url:"http://192.168.1.2:8080/Test1/testing?time="+interval,
-        data:"time",
+        url:"http://192.168.1.103:8080/Test1/testing?time="+interval,
+		async:false,
         success:function(feed) 
         {
 			var temp=eval('(' + feed + ')');
@@ -175,6 +175,5 @@ $.ajax({
     });
 }
 </script>
-
 </body>
 </html>

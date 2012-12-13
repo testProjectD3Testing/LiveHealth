@@ -2,13 +2,9 @@
 <meta charset="utf-8">
 <title>Path Transitions</title>
 <style>
-
-
-
 .x.axis line {
   shape-rendering: auto;
 }
-
 .line {
   fill: none;
   stroke: steelblue;
@@ -21,7 +17,7 @@
 </style>
 <script src="http://d3js.org/d3.v3.js"></script>
 <script language="JavaScript" type="text/javascript" src="jquery-1.8.3.js.js"></script>
-
+<body>
 <script>
 var data=[];
 var i=0;
@@ -67,7 +63,7 @@ path2
 
 
 var data=[];
-var delta=[]
+var delta=[];
 d3.csv("ecgtrial.csv", function(error, data1) {
   data1.forEach(function(d) {
 
@@ -93,7 +89,7 @@ function chart(domain, interpolation, tick) {
       .range([0, width]);
 
   var y = d3.scale.linear()
-      .domain([-100,100])
+      .domain([-75,75])
       .range([height,0]);
 
   var line1 = d3.svg.line()
@@ -135,7 +131,7 @@ function chart(domain, interpolation, tick) {
 
   var path1 = svg1.append("g")
       .attr("clip-path", "url(#clip)")
-    .append("path")
+      .append("path")
       .data([data])
       .attr("class", "line")
       .attr("d", line1);
@@ -147,7 +143,7 @@ function chart(domain, interpolation, tick) {
       .attr("class", "line")
       .attr("d", line2);
 	  
-  tick(path1,path2,line1,line2,data,x);
+ // tick(path1,path2,line1,line2,data,x);
 
 }
 
@@ -157,8 +153,7 @@ function respon(){
 var iq=0;
 $.ajax({
         type:'GET',
-        url:"http://192.168.1.2:8080/Test1/testing?time="+interval,
-        data:"time",
+        url:"http://192.168.1.106:8080/Test1/testing?time="+interval,
         success:function(feed) 
         {
 			var temp=eval('(' + feed + ')');
@@ -175,6 +170,5 @@ $.ajax({
     });
 }
 </script>
-
 </body>
 </html>

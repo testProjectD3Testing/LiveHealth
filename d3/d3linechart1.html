@@ -51,8 +51,10 @@ var mypath;
 
 var line = d3.svg.line()
 	 .interpolate("cardinal")
-    .x(function(d) { return x(d.das); })
-    .y(function(d) { return y(d.close); });
+    .x(function(d,i) {
+		 return i; })
+    .y(function(d,i) { 
+	return y(d.close); });
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -60,16 +62,20 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
-d3.csv("ecgtrial.csv", function(error, data) {
-  data.forEach(function(d) {
-    d.das = +d.das;
-    d.close = +d.close;
-  });
+var data=[];
+var det=new Object();
+det.das=0;
+det.close=0;
+var c=0;
+while(c<1000){
+ //   d.close=pq*100;
+	data.push(det);
+  c++;
+  }
 
 
   x.domain([300,300.60]);
-  y.domain(d3.extent(data, function(d) { return d.close; }));
+  y.domain([-50,50]);
 
   svg.append("g")
       .attr("class", "x axis")
@@ -110,8 +116,7 @@ d3.csv("ecgtrial.csv", function(error, data) {
         .attr("stroke-dashoffset", totalLength);
     })
  
- 
-});
+
 	 
 </script>
 
