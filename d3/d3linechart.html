@@ -28,6 +28,7 @@ var data=[];
 var i=0;
 var interval=0;
 var ydomain;
+var index=0;
 function tick(path1,path2,line1,line2,data,x) {
 
   // push a new data point onto the back
@@ -152,19 +153,21 @@ function chart(domain, interpolation, tick) {
 }
 
 var ind=0;
-
+var stindex=0;
+var norec=100;
 function respon(){
 var iq=0;
 $.ajax({
         type:'GET',
-        url:"http://192.168.1.103:8080/Test1/testing?time="+interval,
+        url:"http://192.168.1.107:8080/Test1/testing",
+        data:"stindex="+ index + "norec=100", 
 		async:false,
         success:function(feed) 
         {
 			var temp=eval('(' + feed + ')');
-			while(iq<400){
-			data.push({lead1:(temp[iq+1]*100),lead2:(temp[iq+2]*100)});
-			iq=iq+4;
+			while(iq<300){
+			data.push({lead1:(temp[iq]*100),lead2:(temp[iq+1]*100)});
+			iq=iq+3;
 			}
 			interval=interval+100;
         },
