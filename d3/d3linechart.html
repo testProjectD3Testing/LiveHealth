@@ -15,71 +15,69 @@
   stroke-width: 2.5px;
 }
 .svg1{
-	margin-top:100px;
+	margin-top:30px;
 }
 
 </style>
-<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../d3.v3.js"></script>
 <script language="JavaScript" type="text/javascript" src="jquery-1.8.3.js.js"></script>
 <body>
-
+<div align="center">
+<img src="ajax_loader-2.gif" hidden="true" id="loading" style="top:100px;">
+</div>
 <script>
 var data=[];
+data.spli
 var i=0;
 var interval=0;
-var ydomain;
-var index=0;
+var ind=0;
+var stindex=0;
+var norec=100;
+
+
+
 function tick(path1,path2,line1,line2,data,x) {
 
   // push a new data point onto the back
-  if(i%100==0){
+  if(i%norec==0){
 		  respon();
-  i++;
   }
   i++;
   // redraw the line, and then slide it to the left
   path1
       .attr("d", line1)
-      .attr("transform", null)
+	   .attr("transform", null)
       .transition()
-      .duration(30)
+      .duration(10)
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ")")
-     // .each("end", function() { tick(path1,path2,line1,line2,data,x); });
 	  
-	  
-
 path2
       .attr("d", line2)
       .attr("transform", null)
       .transition()
-      .duration(30)
+      .duration(10)
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ")")
       .each("end", function() { tick(path1,path2,line1,line2,data,x); });
-
-
   // pop the old data point off the front
   data.shift();
+//  data.pop();
 
 }
-
-
-//var data=[];
-var delta=[];
 var c=0;
 var det=new Object();
 det.lead1=0;
 det.lead2=0;
 det.lead5=0;
-while(c<721){
+while(c<window.innerWidth){
  //   d.close=pq*100;
 	data.push(det);
   c++;
   }
 
 //  data=delta.slice(0,720);
-//respon();
+//respon();  
   chart([0,n-1], "cardinal",tick);
  
 var n = 720;
@@ -88,8 +86,8 @@ function chart(domain, interpolation, tick) {
 // var data = d3.range(n).map(random);
 
   var margin = {top: 6, right: 0, bottom: 6, left: 40},
-      width = 720,
-      height = 300;
+      width = window.innerWidth,
+      height = 200;
 
   var x = d3.scale.linear()
       .domain([0,720])
@@ -108,7 +106,7 @@ function chart(domain, interpolation, tick) {
 	  		return y(d.lead1); 
 	  });
 
-  var svg1 = d3.select("body").append("p").append("svg")
+  var svg1 = d3.select("div").append("p").append("svg")
       .attr("width", width)
       .attr("height", height)
       .style("margin-left", -margin.left + "px")
@@ -126,7 +124,7 @@ function chart(domain, interpolation, tick) {
 	  		return y(d.lead2); 
 	  });
 
-  var svg2 = d3.select("body").append("p").append("svg")
+  var svg2 = d3.select("div").append("p").append("svg")
       .attr("width", width)
       .attr("height", height)
       .style("margin-left", -margin.left + "px")
@@ -135,41 +133,43 @@ function chart(domain, interpolation, tick) {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-
   var path1 = svg1.append("g")
     .append("path")
       .data([data])
       .attr("class", "line")
-      .attr("d", line1);
+      .attr("d", line1)
 	  
 	  var path2 = svg2.append("g")
     .append("path")
       .data([data])
       .attr("class", "line")
-      .attr("d", line2);
-	  
+      .attr("d", line2)
+	  	  
   tick(path1,path2,line1,line2,data,x);
 
 }
-
-var ind=0;
-var stindex=0;
-var norec=100;
-function respon(){
-var iq=0;
+function respon()
+{
+var iq=0; 
+$("svg").hide();
+$("#loading").show();
 $.ajax({
         type:'GET',
-        url:"http://192.168.1.107:8080/Test1/testing",
-        data:"stindex="+ index + "norec=100", 
+        url:"http://localhost:8080/Test1/testing",
+		data: "stindex=" + interval + "&norec="+ norec,
 		async:false,
         success:function(feed) 
         {
 			var temp=eval('(' + feed + ')');
-			while(iq<300){
-			data.push({lead1:(temp[iq]*100),lead2:(temp[iq+1]*100)});
+			while(iq<3*norec){
+			data.push({lead1:(temp[iq]*100),lead2:(temp[iq+1]*100),lead5:(temp[iq+2]*100)});
 			iq=iq+3;
 			}
+			setTimeout(function(){
 			interval=interval+100;
+			$("svg").show();
+			$("#loading").hide();
+			},300);
         },
 		error:function(data,request)
 		{
