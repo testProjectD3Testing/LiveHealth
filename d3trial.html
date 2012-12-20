@@ -3,10 +3,10 @@
 		<title>Simple Sparkline using SVG Path and d3.js</title>
 		<script src="http://d3js.org/d3.v3.js"></script>
 		<style>
-			/* tell the SVG path to be a thin blue line without any area fill */
-			path {
+		.line
+			{
 				stroke: steelblue;
-				stroke-width: 1;
+				stroke-width: 1px;
 				fill: none;
 			}
 		</style>
@@ -19,9 +19,10 @@
 
 	<script>
 	
-		// create an SVG element inside the #graph div that fills 100% of the div
 		var graph = d3.select("#graph").append("svg:svg").attr("width", "100%").attr("height", "100%");
 		var h=500;
+		var dataset=[];
+		var i=0;
 		// create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
 		var data = [];
 		var datax=[];
@@ -30,6 +31,10 @@
     d.das = +(d.das);
     var yax = +(d.close);
 	d.close=yax*100;
+	  if(d.sample=="A")
+	    {
+	     dataset.push(d);
+	     }
 	data.push(d);
   });
 
@@ -37,26 +42,42 @@
 		var x = d3.scale.linear().domain([300.00,307.00]).range([0, 700]);
 		// Y scale will fit values from 0-10 within pixels 0-100
 		var y = d3.scale.linear().domain([-50,100]).range([100,0]);
+		var i1=0;
+		
 
 		// create a line object that represents the SVN line we're creating
 		var line = d3.svg.line()
-			// assign the X function to plot our line as we wish
+			
 			.x(function(d) { 
-				// verbose logging to show what's actually being done
-				//console.log('Plotting X value for data point: ' + d + ' using our xScale.');
-				// return the X coordinate where we want to plot this datapoint
+				
 				return x(d.das); 
 			})
 			.y(function(d) { 
-				// verbose logging to show what's actually being done
-				console.log('Plotting Y value for data point: ' + d.close + ' to be at: ' + d.close + " using our yScale.");
+				
 				// return the Y coordinate where we want to plot this datapoint
 				return y(d.close); 
 			})
+			
 	
-			// display the line by appending an svg:path element with the data line we created above
-			graph.append("svg:path").attr("d", line(data));
+			graph.append("svg:path").attr("d", line(data)).attr("stroke","blue").attr("fill","none");
+			graph.selectAll("circle")
+			.data(dataset)
+			.enter()
+			.append("circle")
+			.attr("cx",function(d){return x(d.das);})
+			.attr("cy",function(d){return y(d.close);})
+			.attr("fill","white")
+			.attr("stroke","red")
+			.attr("stroke-width","2px")
+			.attr("r",2);
 		});
+		
+		
+	function find_abnrmal(ypt,samplept,xpt,i)
+	  {
+	  
+	  return 0;
+	  }
 	</script>
 
 
