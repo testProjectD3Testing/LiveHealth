@@ -1,0 +1,611 @@
+html,body {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	margin: 0px;
+}
+p,label,a {
+	font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	margin: 0px;
+}
+.allergy_main_div {
+	width: 100%;
+	margin-top: 10px;
+	float: left;
+}
+.allergy_div_header {
+	width: auto;
+	height: auto;
+	position: relative;
+	padding: 5px;
+	float:left;
+}
+.add_div {
+	margin-left: 5px;
+	width:auto;
+	height:auto;
+	float:left;
+	padding-right: 5px;
+	cursor: pointer;
+}
+.header_name {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	width: auto;
+	padding-left: 5px;
+	float: left;
+	font-variant: small-caps;
+}
+.div_container {
+	clear:left;
+	width: auto;
+	height: auto;
+	padding: 5px;
+	float:left;
+}
+.form_container {
+	width: auto;
+	height: auto;
+	border: 1px solid;
+	border-color: #666;
+	padding: 5px;
+	position: relative;
+}
+.input_textbox {
+	padding-right: 2px;
+	padding-left: 2px;
+	margin: 3px;
+	border: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: #666666;
+	box-shadow: 0px 0px 1px #555;
+	height: 25px;
+}
+.login_username_textbox {
+	width: 75%;
+}
+.login_password_textbox {
+	width: 47%;
+}
+.dropdown_list {
+	padding-right: 2px;
+	padding-left: 2px;
+	margin-left: 3px;
+	height: 25px;
+	box-shadow: 0px 0px 1px #555;
+	border: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: #666666;
+	width:21%;
+	margin-left: 5%;
+}
+.signin_button {
+	width : 25%;
+}
+.allergy_button_add {
+	width : 21%;
+	margin-left: 5%;
+}
+.button_add {
+	height: 25px;
+	text-align: center;
+	padding-right: 2px;
+	padding-left: 2px;
+	cursor: pointer;
+	border-radius: 3px;
+	color: #ffffff;
+  	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  	background-color: #006dcc;
+  	*background-color: #0044cc;
+  	background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  	background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  	background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  	background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  	background-repeat: repeat-x;
+  	border-color: #0044cc #0044cc #002a80;
+  	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+  	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.button_add:active,
+.button_add:hover,
+.button_add.active,
+.button_add.disabled,
+.button_add[disabled] {
+	 color: #ffffff;
+  	background-color: #0044cc;
+  	*background-color: #003bb3;
+}
+.button_add.active {
+	color: rgba(255, 255, 255, 0.75);
+}
+.button_add:active,
+.button_add.active {
+	background-color: #003399 \9;
+}
+.sample_allergy_container {
+	float:left;
+	width: 30%;
+	height: auto;
+	padding: 5px;
+}
+.label_show {
+	height: 25px;
+	padding-right: 2px;
+	padding-left: 2px;
+	margin: 3px;
+	width: 40%;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+}
+.main_header {
+	width: 100%;
+	height: 100%;
+}
+.main_login_header {
+	width: 100%;
+	height: 100%;
+	background-color: #f0f2f1;
+}
+.top_main_header {
+	width: auto;
+	height: 25%;
+}
+.colored_header {
+	width: auto;
+	height: auto;
+	clear:left;
+	font-size: 40px;
+	font-weight: 700;
+	padding-left: 35px;
+	margin-top: 10px;
+	color: white;
+}
+.middle_main_header {
+	background-color: #1f96f1;
+}
+.bottom_main_header {
+	width: auto;
+	height: auto;
+}
+.header_personal_details {
+	width: 60%;
+	height: auto;
+	float: left;
+	padding-top: 30px;
+	padding-left: 30px;
+	margin-bottom: 10px;
+}
+.header_guardian_details {
+	width: auto;
+	height: auto;
+	padding-top: 10px;
+	padding-right: 5px;
+	float:left;
+}
+.header_provider_details {
+	width: 45%;
+	height: auto;
+	float:left;
+	padding-left: 35px;
+}
+.header_next_appointment_details {
+	width: auto;
+	height: auto;
+	float:left;
+	padding-bottom: 20px;
+}
+.gender {
+	height: auto;
+	padding-right: 7px;
+	padding-left: 7px;
+	margin-left: 3px;
+	color: white;
+	font-weight: bold;
+}
+.gender_female {
+	background-color: #bd0cbb;
+}
+.gender_male {
+	background-color: #1e629b;
+	margin-left: 5px;
+}
+.header_bold {
+	font-weight: 700;
+	font-size: 50px;
+	float: left;
+}
+.auto_size {
+	width: auto;
+	height: auto;
+	float: left;
+}
+.current_age {
+	clear: left;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 30px;
+	width: auto;
+	padding-left: 7px;
+	float:left;
+}
+.person_birthdate {
+	width: auto;
+	font-size: 15px;
+	font-weight: 400;
+	font-style: normal;
+	float:left;
+	padding-left: 5px;
+}
+.person_birthdate_bottom {
+	float: left;
+}
+.blood_group {
+	float: left;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 30px;
+	width: auto;
+	padding-left: 20px;
+}
+.person_address {
+	clear :left;
+	padding-left: 7px;
+}
+.patient_relation {
+	color: #5f5f5f;
+	font-weight: 700;
+}
+.marital_status {
+	font-style: normal;
+	font-weight: 300;
+	font-size: 20px;
+	width: auto;
+	padding-left: 5px;
+	float: left;
+}
+.provider_name {
+	clear:left;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 25px;
+	width: auto;
+	padding-left: 5px;
+}
+.phone_label {
+	padding-left: 5px;
+	clear:left;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 15px;
+	width: auto;
+	color: #636262;
+	padding-top: 10px;
+	float: left;
+}
+.provider_contact {
+	margin-left: 20px;
+	font-size: 25px;
+	font-style: normal;
+	font-weight: 300;
+	width: auto;
+	float:left;
+}
+.provider_location_top {
+	margin-left: 20px;
+	margin-top: 5px;
+}
+.provider_location_bottom {
+	clear:left;
+	padding-left: 105px;
+}
+.next_appointment_date {
+	color: #1f96f1;
+	float: left;
+}
+.next_appointment_time {
+	float: left;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 25px;
+	width: auto;
+	padding-left: 10px;
+	font-variant: small-caps;
+}
+.calculate_next_appointment {
+	padding-top: 5px;
+	padding-left: 10px
+}
+.appointment_doctor {
+	clear: left;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 25px;
+	width: auto;
+	padding-left: 5px;
+}
+.appointment_location_top {
+	padding-top: 5px;
+	clear: left;
+}
+.appointment_desc_head {
+	color: #d92b61;
+	font-weight: 700;
+}
+.padding_left {
+	padding-left: 10px;
+}
+.header_bottom_border_left {
+	background-color: #454646;
+	float: left;
+	clear:left;
+	width: 40%;
+	height: 5px;
+}
+.header_bottom_border_middle {
+	width: 8%;
+	float:left;
+	background-color: white;
+	height: 5px;
+}
+.header_bottom_border_right {
+	background-color: #454646;
+	float: left;
+	width: 52%;
+	height: 5px;
+}
+.top_main_header_divider {
+	background-color: black;
+	height: 100%;
+	float:left;
+	width:1px;
+	margin-top: 20px;	
+}
+.dashed_divider {
+	float: left;
+	width: 1px;
+	height: 100%;
+	background-color: black;
+}
+.allergy_name {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 30px;
+	width: auto;
+	padding-left: 5px;
+	float: left;
+	color: #2473ce;
+	margin-top: 10px;
+}
+.float_left {
+	float: left;
+}
+.reaction_label {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	width: auto;
+	padding-left: 5px;
+	margin-right: 10px;
+	color: #5f5f5f;
+	float:left;
+	font-variant: small-caps;
+	line-height: 30px;
+}
+.intensity {
+	float: right;
+	width: 7px;
+	height: 10px;
+	margin-right: 3px;
+}
+.level3 {
+	background-color: #ce2d56;
+}
+.level2 {
+	background-color: #da7011;
+}
+.level1 {
+	background-color: #8c64c7;
+}
+.clear_left {
+	clear: left;
+}
+.medication_indicator {
+	width: 50%;
+	float: left;
+	line-height: 35px;
+	margin-left: 10px;
+	letter-spacing: -2px;
+	font-variant: small-caps;
+	font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+}
+.lab_results_header {
+	background-color: #ce2d56;
+}
+.medication_main_div {
+	width: 100%;
+	margin-bottom: 10px;
+	float: left;
+}
+.lab_results_container {
+	width: auto;
+	height: auto;
+}
+.tab {
+	width: 20%;
+	height: 40%;
+	float: left;
+	cursor: pointer;
+}
+.hospital_tab {
+	background-color: #f06a69;
+	position: absolute;
+	top: 30%;
+	left:40%;
+	margin-left: 15px;
+}
+.family_tab {
+	background-color: #30a9fa;
+	position: absolute;
+	top: 30%;
+	left:20%;
+}
+.pharmaceuticals_tab {
+	background-color: #6bd825;
+	position: absolute;
+	top: 30%;
+	left:60%;
+	margin-left: 30px;
+}
+.tab_image {
+	padding-top: 15%;
+	width: 50%;
+	height:50%;
+}
+.tab_text {
+	font-weight: 400;
+	font-size: 30px;
+	color: white;
+	letter-spacing: -1px;
+	margin-top: 15px;
+}
+.test_name {
+	font-weight: 400;
+	font-size: 30px;
+	font-style: normal;
+	padding-left: 10px;
+	padding-top: 10px;
+	float: left;
+}
+.test_date {
+	font-weight: 300;
+	font-size: 20px;
+	font-style: normal;
+	padding-left: 25px;
+	padding-top: 10px;
+	float: left;
+	line-height: 45px;
+}
+.test_name_divider {
+	clear:left;
+	height: 1px;
+	width: 100%;
+	margin-top: 20px;
+	background-color: black;
+}
+.test_results_container {
+	width: auto;
+	height: auto;
+	margin-top:15px;
+}
+.test_result_div {
+	width: 40%;
+	height: 20%;
+	margin-left: 15px;
+	float: left;
+}
+.test_div_name {
+	font-weight: 300;
+	font-size: 20px;
+	font-style: normal;
+}
+.signin_div {
+	width: auto;
+	height: auto;
+	display: none;
+}
+.signin_div_visible {
+	width: auto;
+	height: auto;
+	display: block;
+	padding-top: 25%;
+}
+.tab_content_visible {
+	width: auto;
+	height: auto;
+	display: block;
+}
+.tab_content {
+	width: auto;
+	height: auto;
+	display: none;
+}
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+input[type="radio"],
+input[type="checkbox"] {
+  cursor: pointer;
+}
+.forgot {
+	float: left;
+	padding-left: 13%;
+	color: white;
+	font-size: 11px;
+	line-height: 13px;
+}
+.auto_div {
+	width: auto;
+	height: auto;
+}
+.signup_form {
+	padding-top: 20px;
+}
+.signup_header {
+	width: 100%;
+	height: 150px;
+	background-color: #f06a69;
+}
+.sign_up_header {
+	font-size: 40px;
+	font-weight: 400;
+	color: white;
+}
+.sign_up_container {
+	height: auto;
+	margin-top: -80px;
+	margin-left: 300px;
+	margin-right: 300px;
+	background-color: white;
+}
+.sign_up_textbox {
+	width: 250px;
+	margin-bottom: 5px;
+}
+.sign_up_textbox_half {
+	width: 116px;
+	margin-bottom: 5px;
+}
+.birthday_dropdown {
+	width: 80px;
+	height: 25px;
+	padding-right: 2px;
+	padding-left: 2px;
+	margin: 2px;
+}
+.gender_margin {
+	margin-right: 125px;
+}
+.cursor {
+	cursor: pointer;
+}
+.blood_group_dropdown {
+	width: 123px;
+	height: 25px;
+	padding-right: 2px;
+	padding-left: 2px;
+	margin: 3px;
+}
+.sign_up_button {
+	width: 100px;
+	padding: 5px;
+	margin: 5px;
+	text-align: center;
+	height: 30px;
+}

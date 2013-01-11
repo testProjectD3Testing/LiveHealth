@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Add/Remove allergies</title>
+        <!--<link rel="stylesheet" href="/home/mukund/Downloads/bootstrap-master/docs/assets/css/bootstrap.css">-->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="base.css"/>
+    </head>
+    <body>
+    	<div class="allergy_main_div">
+        	<div class="allergy_div_header">
+        			<p class="header_name">Allergies</p>
+        		<div class="add_div">
+        			<p class="header_name" accesskey="+" onclick="">+</p>
+        		</div>
+        	</div>
+        	<div class="div_container">
+        		<form class="form_container" method="post">
+        			<input class="input_textbox" type="text" id="Allergy_name" placeholder="Name" max="32"/>
+        			<select class="dropdown_list">
+        				<option disabled="disabled" selected="selected">Intensity</option>
+        				<option>1</option>
+        				<option>2</option>
+        				<option>3</option>
+        			</select>
+        			<input class="input_textbox" type="text" id="Allergy_description" placeholder="Description" max="255" />
+        			<button type="submit" class="button_add">Add</button>
+        		</form>
+        	</div>
+        	<div class="sample_allergy_container">
+        	<div class="form_container">
+        	<label id="Allergy_name" class="label_show">Penicillin</label><br>
+        	<label id="Allergy_description" class="label_show">Hives</label>
+        	</div>
+        </div>	
+        </div>
+    </body>
+</html>

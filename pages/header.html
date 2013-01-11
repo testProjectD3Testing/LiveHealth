@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Header</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="base.css"/>
+	</head>
+	<body>
+			<div class="top_main_header">
+				<div class="header_personal_details">
+					<p id="person_name" class="header_name header_bold"><%=request.getAttribute("pname")%></p>
+					<span class="auto_size padding_left">
+					<p id="gender_female"> <span class="header_name gender gender_female"><% if(request.getAttribute("pGender")==0)%></span></p>		
+					<p id="phone_number"> <span class="header_name">(415) 555-1229</span></p>
+					</span>
+					<p id="current_age" class="current_age">52</p>
+					<div class="person_birthdate">
+						<p id="month">MARCH</p>
+						<p id="date" class="person_birthdate_bottom">7</p>
+						<p class="person_birthdate_bottom">,</p>
+						<p id="year" class="person_birthdate_bottom">1960</p>
+					</div>
+					<div class="dashed_divider"></div>
+					<p id="blood_group" class="blood_group">AB+</p>
+					<p id="person_address" class="person_address header_name">7 Daws Road Portland, OR 97006</p>
+					<p class="person_address marital_status">Marital Status: </p>
+					<p id="marital_status" class="marital_status">Married</p>
+				</div>	
+				<div class="top_main_header_divider"></div>
+				<div class="header_guardian_details">
+					<p class="header_name">Guardian</p>
+					<p id="guardian_name" class="person_address current_age">Steve Ross</p>
+					<p id="gender_male"> <span class="header_name gender gender_male">M</span></p>
+					<p id="patient_relation" class="person_address header_name patient_relation">Husband</p>
+					<p id="guardian_address" class="person_address header_name">7 Daws Road Portland, OR 97006</p>
+					<p id="guardian_contact" class="person_address header_name">(415) 555-1229</p>
+				</div>
+			</div>
+			<div class="colored_header middle_main_header">
+				<p>Plan of Care</p>
+			</div>
+			<div class="bottom_main_header">
+				<div class="header_provider_details">
+					<p class="header_name patient_relation">Provider</p>
+					<p id="provider_name" class="provider_name">Ashby Medical Center</p>
+					<p class="phone_label">PHONE</p>
+					<p id="provider_contact" class="provider_contact">415-555-1200</p>
+					<p class="phone_label">LOCATION</p>
+					<p id="provider_address_line1" class="marital_status provider_location_top">1002 Healthcare Dr,</p><br>
+					<p id="provider_address_line2" class="marital_status provider_location_bottom">Portland,OR 97266</p>
+				</div>
+				<div class="header_next_appointment_details">
+					<p class="header_name patient_relation">Next Appointment</p>
+					<p id="next_appointment_date" class="provider_name next_appointment_date">Nov. 30, 2012</p>
+					<p id="next_appointment_time" class="next_appointment_time">10:30am</p>
+					<p id="calculate_next_appointment" class="marital_status calculate_next_appointment">(in 2 days)</p>
+					<p id="appointment_doctor_name" class="appointment_doctor">Dr. Henry Seven</p>
+					<p class="marital_status appointment_desc_head">Regarding</p>
+					<p id="appointment_desc" class="marital_status appointment_desc_head padding_left">Ankle Strain</p>
+					<p id="appointment_location_line1" class="marital_status appointment_location_top">Disqus Medical Center 301 Howard Street</p><br>
+					<p id="appointment_location_line2" class="marital_status">San Francisco, CA 94105</p>
+					<a class="marital_status padding_left links" href="http://maps.google.com">Get Directions</a>
+				</div>
+				<div class="header_bottom_border_left"></div>
+				<div class="header_bottom_border_middle"></div>
+				<div class="header_bottom_border_right"></div>
+			
+			<div class="allergy_main_div">
+        	<div class="allergy_div_header">
+        			<p class="allergy_name">Allergies</p>
+        		<div class="add_div">
+        			<p class="allergy_name" accesskey="+" onclick="">+</p>
+        		</div>
+        	</div>
+        	<div class="sample_allergy_container clear_left">
+        		<div class="form_container">
+        			<span class="intensity level3"></span>
+        			<span class="intensity level3"></span>
+        			<span class="intensity level3"></span>
+        			<label id="Allergy_name" class="label_show">Codeine</label><br>
+        			<label class="reaction_label">Reaction</label>
+        			<label id="Allergy_description" class="label_show">Shortness of Breath</label>
+        		</div>
+        	</div>
+        	<div class="sample_allergy_container">
+        		<div class="form_container">
+        			<span class="intensity level2"></span>
+        			<span class="intensity level2"></span>
+        			<label id="Allergy_name" class="label_show">Penicillin</label><br>
+        			<label class="reaction_label">Reaction</label>
+        			<label id="Allergy_description" class="label_show">Hives</label>
+        		</div>
+        	</div>
+        	<div class="sample_allergy_container">
+        		<div class="form_container">
+        			<span class="intensity level1"></span>
+        			<label id="Allergy_name" class="label_show">Shellfish</label><br>
+        			<label class="reaction_label">Reaction</label>
+        			<label id="Allergy_description" class="label_show">Sweating</label>
+        		</div>
+        	</div>	
+        	</div>
+        	<div class="medication_main_div">
+        	<div class="allergy_div_header">
+        			<p class="allergy_name">Medication</p>
+        		<div class="add_div">
+        			<p class="allergy_name" accesskey="+" onclick="">+</p>
+        		</div>
+        	</div>
+        	<div class="sample_allergy_container clear_left">
+        		<div class="form_container">
+        			<label id="Medication_name" class="label_show float_left">Lipitor</label>
+        			<div class="medication_indicator"><b>I</b>---------------------<b>I</b>-------------------<b>I</b></div><br>
+        			<label id="Medication_use" class="label_show">To improve Cholestrol</label>
+        		</div>
+        	</div>
+        	</div>
+        	<div class="colored_header lab_results_header">
+				<p>Lab Results</p>
+			</div>
+			<div class="lab_results_container">
+				<p id="test_name" class="test_name">ECG (Electrocardiogram)</p>
+				<p id="test_date" class="test_date">Oct. 16 2012</p>
+				<div class="test_name_divider"></div>
+				<div class="test_results_container">
+					<div class="test_result_div">
+						<p id="test_div_name" class="test_div_name">ECG Lead <b>1</b></p>
+						<div id="test_result_div_container" class="test_result_div_container clear_left">csovbhols</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

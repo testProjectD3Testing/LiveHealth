@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Login</title>
+        <link rel="stylesheet" href="base.css"/>  
+	</head>
+	<body>
+	 <script type="text/javascript">
+	 
+        	function login(divid,contid)
+        	{
+        	 if(document.getElementById(divid).className="signin_div")
+        	   {
+        	       document.getElementById(divid).className="signin_div_visible"
+        	   }	
+        	 if(document.getElementById(contid).className="tab_content_visible")
+        	 {
+        	 	document.getElementById(contid).className="tab_content"
+        	 }  	
+        	}
+        	function validateform(f,username,password)
+        	{
+        	var a=document.forms["f"]["username"].value;
+        	var b=document.forms["f"]["password"].value;
+        	document.write("code reached here");
+        	if(a=="" && b==""){
+        	 window.location.reload();
+        	 return false;
+        	 }
+        	 return true;
+        	}
+        </script>
+         hjsdjsf
+			<div class="main_login_header" align="center">
+			<div id="family_login" class="tab family_tab" onClick="login('sign_in_box_1','tab_content_1')">
+				<div id="tab_content_1" class="tab_content_visible">
+				<img class="tab_image" src="images/family.png" />
+				<p class="tab_text">Family</p>
+				</div>
+				<div id="sign_in_box_1" class="signin_div">
+					<form name="f1" class="test_results_container" action="localhost:8080/portal/Login"  method="post" onSubmit="return validateform('f1','family_username','password1');"> 
+						<input class="login_username_textbox input_textbox" type="text" id="family_username" placeholder="Username or email" autocomplete="on">
+		 				<input class="login_password_textbox input_textbox" type="password" id="password1" placeholder="Password">
+						<button class="signin_button button_add" type="submit" id="login">Sign In</button>
+						<a class="forgot" href="/account/reset_password">Forgot Password?</a>
+					</form>
+				</div>
+			</div>
+			<div id="hospital_login" class="tab hospital_tab" OnClick="login('sign_in_box_2','tab_content_2');">
+				<div id="tab_content_2" class="tab_content_visible">
+				<img class="tab_image" src="images/hospital.png" />
+				<p class="tab_text">Hospital</p>
+				</div>
+				<div id="sign_in_box_2" class="signin_div">
+					<form name="f2" class="test_results_container" action="http://54.251.117.225:8080/Test1/Login"  method="get" onSubmit="return validateform('f2','hospital_username','password2');"> 
+						<input class="login_username_textbox input_textbox" type="text" id="hospital_username" placeholder="Username or email" autocomplete="on">
+		 				<input class="login_password_textbox input_textbox" type="password" id="password2" placeholder="Password">
+						<button class="signin_button button_add" type="submit" id="login">Sign In</button>
+						<a class="forgot" href="/account/reset_password">Forgot Password?</a>
+					</form>
+				</div>
+			</div>
+			<div id="pharmaceutical_login" class="tab pharmaceuticals_tab" OnClick="login('sign_in_box_3','tab_content_3');">
+				<div id="tab_content_3" class="tab_content_visible">
+				<img class="tab_image" src="images/pharmaceutical.png" />
+				<p class="tab_text">Pharmaceutical</p>
+				</div>
+				<div id="sign_in_box_3" class="signin_div">
+					<form name="f3" class="test_results_container" action="http://localhost:8080/pro/Login"  method="post" onSubmit="return validateform('f3','pharma_username','password3');"> 
+						<input class="login_username_textbox input_textbox" type="text" id="pharma_username" placeholder="Username or email" autocomplete="on">
+		 				<input class="login_password_textbox input_textbox" type="password" id="password3" placeholder="Password">
+						<button class="signin_button button_add" type="submit" id="login">Sign In</button>
+						<a class="forgot" href="/account/reset_password">Forgot Password?</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
