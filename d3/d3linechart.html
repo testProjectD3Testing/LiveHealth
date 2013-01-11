@@ -76,8 +76,6 @@ while(c<window.innerWidth){
   c++;
   }
 
-//  data=delta.slice(0,720);
-//respon();  
   chart([0,n-1], "cardinal",tick);
  
 var n = 720;
@@ -155,7 +153,7 @@ $("svg").hide();
 $("#loading").show();
 $.ajax({
         type:'GET',
-        url:"http://localhost:8080/Test1/testing",
+        url:"http://54.251.117.225:8080/Test1/testing",
 		data: "stindex=" + interval + "&norec="+ norec,
 		async:false,
         success:function(feed) 
@@ -165,11 +163,10 @@ $.ajax({
 			data.push({lead1:(temp[iq]*100),lead2:(temp[iq+1]*100),lead5:(temp[iq+2]*100)});
 			iq=iq+3;
 			}
-			setTimeout(function(){
-			interval=interval+100;
+			interval=interval+ 100;
 			$("svg").show();
 			$("#loading").hide();
-			},300);
+
         },
 		error:function(data,request)
 		{

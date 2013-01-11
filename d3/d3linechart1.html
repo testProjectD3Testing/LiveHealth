@@ -25,8 +25,14 @@ body {
 
 </style>
 <body>
+<script language="JavaScript" type="text/javascript" src="jquery-1.8.3.js.js"></script>
+
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
+var interval=0;
+var ind=0;
+var stindex=0;
+var norec=500;
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 150,
@@ -54,7 +60,7 @@ var line = d3.svg.line()
     .x(function(d,i) {
 		 return i; })
     .y(function(d,i) { 
-	return y(d.close); });
+	return y(d.lead1); });
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -64,14 +70,10 @@ var svg = d3.select("body").append("svg")
 
 var data=[];
 var det=new Object();
-det.das=0;
-det.close=0;
+det.lead1=0;
+det.lead2=0;
 var c=0;
-while(c<1000){
- //   d.close=pq*100;
-	data.push(det);
-  c++;
-  }
+respon();
 
 
   x.domain([300,300.60]);
@@ -114,7 +116,32 @@ while(c<1000){
         .duration(2000)
         .ease("linear")
         .attr("stroke-dashoffset", totalLength);
-    })
+    });
+    
+    function respon()
+{
+var iq=0; 
+$.ajax({
+        type:'GET',
+        url:"http://54.251.117.225:8080/Test1/testing",
+		data: "stindex=" + 0 + "&norec="+ 500,
+		async:false,
+        success:function(feed) 
+        {
+			var temp=eval('(' + feed + ')');
+			while(iq<3*norec){
+			data.push({lead1:(temp[iq]*100),lead2:(temp[iq+1]*100),lead5:(temp[iq+2]*100)});
+			iq=iq+3;
+			}
+			interval=interval+ 100;
+
+        },
+		error:function(data,request)
+		{
+			console.log("inerror");
+			}
+    });
+}
  
 
 	 
